@@ -106,8 +106,12 @@ namespace NewsFramework.UI.Blocks
 
             CreateMargin(block.marginTop);
             var view = registry.Create(block, contentRoot);
-            view.SetContext(context);
-            view.Bind(block, onAction);
+            if (view != null)
+            {
+                view.SetContext(context);
+                view.Bind(block, onAction);
+            }
+
             CreateMargin(block.marginBottom);
         }
     }

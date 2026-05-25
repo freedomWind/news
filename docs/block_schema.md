@@ -36,9 +36,43 @@ Unity 端根据 `type` 决定使用哪个 UI 组件渲染该 block。
 | --- | --- | --- | --- |
 | `id` | string | 是 | block 唯一标识 |
 | `type` | string | 是 | block 类型 |
+| `rendererKey` | string | 否 | 可选渲染器选择键；首个 prefab 通路使用 `prefab` |
+| `prefabKey` | string | 否 | prefab 资源键；当前骨架通过 `Resources.Load<GameObject>(prefabKey)` 加载 |
+| `fallbackType` | string | 否 | prefab 缺失或无法绑定时的降级类型提示 |
 | `marginTop` | number | 否 | 顶部间距 |
 | `marginBottom` | number | 否 | 底部间距 |
 | `action` | object | 否 | 点击行为 |
+
+## 混合渲染字段
+
+首版混合渲染不替换现有代码生成卡片，只在 `BlockRegistry` 增加 prefab
+路径：
+
+```json
+{
+  "id": "game_entry_prefab_001",
+  "type": "game_entry",
+  "rendererKey": "prefab",
+  "prefabKey": "Prefabs/Blocks/GameEntryCard",
+  "fallbackType": "featured_match",
+  "title": "今日人机挑战",
+  "action": {
+    "type": "open_ai_practice",
+    "target": "xiangqi"
+  }
+}
+```
+
+运行规则：
+
+- `rendererKey == "prefab"` 或 `prefabKey` 非空时，`BlockRegistry` 选择
+  `PrefabBlockView`。
+- 代码也可以调用 `BlockRegistry.RegisterPrefab(type, prefabKey, fallbackType)`
+  为某个 block type 注册默认 prefab。
+- prefab 根节点必须挂载实现 `IDataBoundView<BlockData>` 的组件；组件只做
+  数据绑定和本地输入转 action，不直接处理导航或业务服务。
+- prefab 缺失或没有绑定组件时显示 fallback 占位并输出 warning，不导致页面
+  崩溃。
 
 ## 媒体引用
 

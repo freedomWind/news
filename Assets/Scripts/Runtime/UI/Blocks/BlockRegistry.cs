@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using NewsFramework.Data.Blocks;
+using NewsFramework.UI.Rendering;
 using UnityEngine;
 
 namespace NewsFramework.UI.Blocks
@@ -9,6 +10,8 @@ namespace NewsFramework.UI.Blocks
     {
         private readonly Dictionary<string, Func<Transform, BlockViewBase>> factories =
             new Dictionary<string, Func<Transform, BlockViewBase>>();
+        private readonly RendererRegistry<PrefabRenderDescriptor> prefabRegistry =
+            new RendererRegistry<PrefabRenderDescriptor>();
 
         public void Register(string type, Func<Transform, BlockViewBase> factory)
         {
@@ -21,11 +24,32 @@ namespace NewsFramework.UI.Blocks
             factories[type] = factory;
         }
 
+        public void RegisterPrefab(string type, string prefabKey, string fallbackType = "")
+        {
+            if (string.IsNullOrWhiteSpace(type))
+            {
+                Debug.LogWarning("Block type cannot be empty.");
+                return;
+            }
+
+            prefabRegistry.Register(type, new PrefabRenderDescriptor
+            {
+                type = type,
+                prefabKey = prefabKey,
+                fallbackType = fallbackType
+            });
+        }
+
         public BlockViewBase Create(BlockData data, Transform parent)
         {
             if (data == null || string.IsNullOrWhiteSpace(data.type))
             {
                 return CreateUnknown(parent, "empty");
+            }
+
+            if (ShouldUsePrefab(data, out var descriptor))
+            {
+                return PrefabBlockView.Create(parent, descriptor);
             }
 
             if (!factories.TryGetValue(data.type, out var factory))
@@ -57,6 +81,37 @@ namespace NewsFramework.UI.Blocks
             registry.Register("article_header", ArticleHeaderBlockView.Create);
             registry.Register("title", ArticleHeaderBlockView.Create);
             return registry;
+        }
+
+        private bool ShouldUsePrefab(BlockData data, out PrefabRenderDescriptor descriptor)
+        {
+            descriptor = null;
+            if (data == null)
+            {
+                return false;
+            }
+
+            if (string.Equals(data.rendererKey, "prefab", StringComparison.OrdinalIgnoreCase) ||
+                !string.IsNullOrWhiteSpace(data.prefabKey))
+            {
+                if (!string.IsNullOrWhiteSpace(data.prefabKey))
+                {
+                    descriptor = new PrefabRenderDescriptor
+                    {
+                        type = data.type,
+                        prefabKey = data.prefabKey,
+                        fallbackType = data.fallbackType
+                    };
+                    return true;
+                }
+
+                descriptor = prefabRegistry.TryGet(data.type, out var registered)
+                    ? registered
+                    : new PrefabRenderDescriptor { type = data.type };
+                return true;
+            }
+
+            return prefabRegistry.TryGet(data.type, out descriptor);
         }
 
         private static BlockViewBase CreateUnknown(Transform parent, string type)

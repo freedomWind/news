@@ -9,6 +9,9 @@ namespace NewsFramework.Data.Blocks
     {
         public string id;
         public string type;
+        public string rendererKey;
+        public string prefabKey;
+        public string fallbackType;
         public float marginTop = -1f;
         public float marginBottom = -1f;
         public BlockActionData action = BlockActionData.None();

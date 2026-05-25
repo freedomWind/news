@@ -42,7 +42,7 @@ PageController
 Renderer Registry
   BlockRegistry
   FeatureSectionRegistry
-  future PrefabRendererRegistry
+  RendererRegistry + PrefabBlockView
   future GameSurfaceRegistry
 
 Renderer Domain
@@ -371,7 +371,7 @@ layer above them:
 RendererRegistry
   content.block -> BlockRegistry
   feature.section -> FeatureSectionRegistry
-  prefab.module -> PrefabRendererRegistry
+  prefab.module -> RendererRegistry + PrefabBlockView
   game.surface -> GameSurfaceRegistry
 ```
 
@@ -382,6 +382,19 @@ PageController selects the domain renderer.
 Domain renderer selects the concrete view/prefab by type, rendererKey, or prefabKey.
 Views bind data and emit actions only.
 ```
+
+Current prefab block skeleton:
+
+```text
+BlockData.rendererKey/prefabKey
+  -> BlockRegistry.RegisterPrefab or inline prefabKey
+  -> PrefabBlockView
+  -> Resources.Load(prefabKey)
+  -> IDataBoundView<BlockData>.Bind(data, onAction)
+```
+
+Missing prefabs or prefabs without `IDataBoundView<BlockData>` render a local
+fallback placeholder and log a warning.
 
 Unknown type handling:
 

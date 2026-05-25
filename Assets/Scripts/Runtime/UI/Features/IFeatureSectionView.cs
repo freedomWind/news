@@ -1,11 +1,9 @@
-using System;
-using NewsFramework.Data.Blocks;
 using NewsFramework.Data.Features;
+using NewsFramework.UI.Rendering;
 
 namespace NewsFramework.UI.Features
 {
-    public interface IFeatureSectionView
+    public interface IFeatureSectionView : IDataBoundView<FeatureSectionData>
     {
-        void Bind(FeatureSectionData data, Action<BlockActionData> onAction);
     }
 }

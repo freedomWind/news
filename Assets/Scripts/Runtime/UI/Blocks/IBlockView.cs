@@ -1,10 +1,9 @@
-using System;
 using NewsFramework.Data.Blocks;
+using NewsFramework.UI.Rendering;
 
 namespace NewsFramework.UI.Blocks
 {
-    public interface IBlockView
+    public interface IBlockView : IDataBoundView<BlockData>
     {
-        void Bind(BlockData data, Action<BlockActionData> onAction);
     }
 }

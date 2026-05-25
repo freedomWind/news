@@ -51,7 +51,7 @@ Unity 端根据 `type` 决定使用哪个 UI 组件渲染该 block。
 ```json
 {
   "id": "game_entry_prefab_001",
-  "type": "game_entry",
+  "type": "game_entry_card",
   "rendererKey": "prefab",
   "prefabKey": "Prefabs/Blocks/GameEntryCard",
   "fallbackType": "featured_match",
@@ -73,6 +73,9 @@ Unity 端根据 `type` 决定使用哪个 UI 组件渲染该 block。
   数据绑定和本地输入转 action，不直接处理导航或业务服务。
 - prefab 缺失或没有绑定组件时显示 fallback 占位并输出 warning，不导致页面
   崩溃。
+
+当前 mock feed 中 `live_match_001` 已使用 `game_entry_card` + prefab 通路；
+`live_match_002` 仍使用 `live_match_item` 代码 View，作为同一 feed 内的对照。
 
 ## 媒体引用
 

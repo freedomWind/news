@@ -82,10 +82,14 @@ namespace NewsFramework.Data.Mock
             blocks.Add(new BlockData
             {
                 id = "live_match_001",
-                type = "live_match_item",
-                badge = "♞",
+                type = "game_entry_card",
+                rendererKey = "prefab",
+                prefabKey = "Prefabs/Blocks/GameEntryCard",
+                fallbackType = "live_match_item",
+                badge = "Prefab",
                 title = "赵六 vs 王五",
                 subtitle = "第42回合 · 23人围观",
+                source = "混合渲染样例",
                 action = new BlockActionData
                 {
                     type = "open_match",

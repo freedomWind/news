@@ -22,6 +22,9 @@ FeaturePageData
 FeatureSectionData
   id
   type
+  rendererKey
+  prefabKey
+  fallbackType
   title
   subtitle
   actionText
@@ -56,8 +59,26 @@ FeatureItemData
 - `achievement_strip`
 - `rank_list`
 - `settings_list`
+- `settings_list_prefab`
 - `about_footer`
 - `empty_state`
+
+## Prefab Section Rendering
+
+`rendererKey == "prefab"` or a non-empty `prefabKey` selects
+`PrefabFeatureSectionView`. The prefab is loaded with
+`Resources.Load<GameObject>(prefabKey)` and must expose
+`IDataBoundView<FeatureSectionData>` on one of its root components. When the
+prefab is missing or the binding component is invalid, `fallbackType` points to
+the code-rendered section used as the safe fallback.
+
+```text
+FeatureSectionData.rendererKey/prefabKey
+  -> FeatureSectionRegistry.RegisterPrefab or inline prefabKey
+  -> PrefabFeatureSectionView
+  -> Resources.Load(prefabKey)
+  -> IDataBoundView<FeatureSectionData>.Bind(data, onAction)
+```
 
 未知类型会渲染为 `UnknownFeatureSectionView`，用于暴露服务端或本地配置错误。
 

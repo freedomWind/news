@@ -9,6 +9,9 @@ namespace NewsFramework.Data.Features
     {
         public string id;
         public string type;
+        public string rendererKey;
+        public string prefabKey;
+        public string fallbackType;
         public string title;
         public string subtitle;
         public string actionText;

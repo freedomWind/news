@@ -396,6 +396,19 @@ BlockData.rendererKey/prefabKey
 Missing prefabs or prefabs without `IDataBoundView<BlockData>` render a local
 fallback placeholder and log a warning.
 
+Current prefab feature section skeleton:
+
+```text
+FeatureSectionData.rendererKey/prefabKey
+  -> FeatureSectionRegistry.RegisterPrefab or inline prefabKey
+  -> PrefabFeatureSectionView
+  -> Resources.Load(prefabKey)
+  -> IDataBoundView<FeatureSectionData>.Bind(data, onAction)
+```
+
+Missing feature prefabs or prefabs without `IDataBoundView<FeatureSectionData>`
+fall back to the registered code section when `fallbackType` is available.
+
 Unknown type handling:
 
 - unknown content block -> `UnknownBlockView` or ignored placeholder;

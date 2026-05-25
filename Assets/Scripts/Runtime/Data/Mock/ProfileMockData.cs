@@ -70,7 +70,10 @@ namespace NewsFramework.Data.Mock
                     new FeatureSectionData
                     {
                         id = "settings",
-                        type = "settings_list",
+                        type = "settings_list_prefab",
+                        rendererKey = "prefab",
+                        prefabKey = "Prefabs/Features/SettingsListSection",
+                        fallbackType = "settings_list",
                         items = new List<FeatureItemData>
                         {
                             Setting("board_style", "棋盘风格", "木质棋盘 · 深色", null),

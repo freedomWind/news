@@ -1,5 +1,9 @@
 # GameRoom Schema
 
+> GameRoomData is the current demo room UI data. The app-level game entry,
+> lifecycle, view-state, input, result, resource, error, and fallback contract is
+> defined in `game_runtime_contract.md`.
+
 ## 目标
 
 `GameRoomData` 用于描述观战、下棋和回放房间的 UI 拼装输入。它属于局内运行态页面协议，不属于 `BlockSchema` 或 `FeaturePageData`。

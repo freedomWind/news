@@ -80,3 +80,6 @@ rendering path:
 
 See `docs/ui_runtime_boundaries.md` for the AppShell/PageController/Renderer/
 ActionDispatcher/GameSurface boundary contract.
+
+See `docs/game_runtime_contract.md` for the game entry, session lifecycle,
+view-state, input, result, resource, error, and fallback contract.

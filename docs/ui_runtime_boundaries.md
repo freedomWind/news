@@ -21,6 +21,8 @@ Related documents:
 - `block_schema.md`: content block schema for feeds and article details.
 - `feature_page_schema.md`: feature page data contract.
 - `game_room_schema.md`: current game room runtime data contract.
+- `game_runtime_contract.md`: game entry, session lifecycle, view-state, input,
+  result, resource, error, and fallback contract.
 
 ## Layer Map
 
@@ -149,6 +151,8 @@ Not allowed:
 ### GamePage / GameSurface
 
 Used after the user enters a playable or watchable game context.
+
+Detailed game runtime contracts are defined in `game_runtime_contract.md`.
 
 Contract:
 

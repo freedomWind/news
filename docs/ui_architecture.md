@@ -1,5 +1,8 @@
 # UI 架构
 
+> 运行时 UI 的总边界契约见 `ui_runtime_boundaries.md`。本文继续记录当前
+> Unity UI 分层、已有组件和实现细节。
+
 ## 技术选型
 
 运行时主 UI 使用：

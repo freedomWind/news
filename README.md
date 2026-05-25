@@ -77,3 +77,6 @@ rendering path:
 - Data should carry `prefabKey`, schema version, resource keys, actions, and
   fallback information; business routing, analytics, refresh, and service calls
   should remain in the unified rendering pipeline.
+
+See `docs/ui_runtime_boundaries.md` for the AppShell/PageController/Renderer/
+ActionDispatcher/GameSurface boundary contract.

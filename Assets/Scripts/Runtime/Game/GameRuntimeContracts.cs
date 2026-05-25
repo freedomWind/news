@@ -90,7 +90,7 @@ namespace NewsFramework.GameRuntime
                 mode = request != null && !string.IsNullOrEmpty(request.mode) ? request.mode : GameRuntimeModes.Spectator,
                 fallback = GameFallbackData.MinimalSurface("使用基础棋盘模式。")
             };
-            manifest.prefabKeys.Add(new GameResourceRef { key = "Games/Xiangqi/GameSurface", required = false });
+            manifest.prefabKeys.Add(new GameResourceRef { key = "Prefabs/GameSurface/GameRoomSurface", required = false });
             manifest.assetBundleKeys.Add(new GameResourceRef { key = "game_xiangqi_board_default", required = false });
             return manifest;
         }

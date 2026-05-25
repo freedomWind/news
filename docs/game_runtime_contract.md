@@ -520,7 +520,7 @@ Example:
   "version": "1",
   "mode": "ai_training",
   "prefabKeys": [
-    { "key": "Games/Xiangqi/GameSurface", "required": true },
+    { "key": "Prefabs/GameSurface/GameRoomSurface", "required": false },
     { "key": "Games/Xiangqi/ResultPanel", "required": false }
   ],
   "assetBundleKeys": [
@@ -656,7 +656,8 @@ Task #8 should not rewrite the whole game UI. It should wrap the existing demo:
 3. Add a simple `GameSession` state machine with logs.
 4. Convert existing `GameRoomData` into initial `GameViewState`, or keep it as
    a compatibility payload inside `GameViewState`.
-5. Add `GameRoomSurfaceRenderer` that mounts existing `GameRoomPage`.
+5. Add `GameRoomSurfaceRenderer` that loads a game surface prefab root and
+   mounts existing `GameRoomPage` through `GameRoomSurfaceView`.
 6. Map existing `GameRoomActionData` into `GameInputAction`.
 7. Route exit/result back to AppShell action handling.
 8. Keep `IGameSimulation` integration minimal: AI training can start with mock

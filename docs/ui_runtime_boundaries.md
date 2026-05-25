@@ -396,6 +396,19 @@ BlockData.rendererKey/prefabKey
 Missing prefabs or prefabs without `IDataBoundView<BlockData>` render a local
 fallback placeholder and log a warning.
 
+Editor scaffolding for content block prefabs:
+
+```text
+NewsFramework/Prefab Scaffolder/BlockData To Prefab
+  -> select BlockData sample
+  -> preview temporary scaffold
+  -> export prefab
+  -> validate root IDataBoundView<BlockData>
+```
+
+The Editor tool creates first-pass assets only. Runtime still uses
+`prefabKey -> Resources.Load -> IDataBoundView<BlockData>.Bind`.
+
 Current prefab feature section skeleton:
 
 ```text

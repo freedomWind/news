@@ -77,6 +77,23 @@ Unity 端根据 `type` 决定使用哪个 UI 组件渲染该 block。
 当前 mock feed 中 `live_match_001` 已使用 `game_entry_card` + prefab 通路；
 `live_match_002` 仍使用 `live_match_item` 代码 View，作为同一 feed 内的对照。
 
+## Editor Prefab Scaffolder
+
+`NewsFramework/Prefab Scaffolder/BlockData To Prefab` opens an Editor-only
+tool for creating a first-pass prefab from a `BlockData` sample:
+
+```text
+select block type
+  -> load built-in sample data
+  -> preview a temporary scaffold
+  -> export a prefab under Assets/RuntimeResources/Resources/Prefabs/Blocks/Generated
+  -> validate root IDataBoundView<BlockData>
+```
+
+The exported scaffold uses `GenericBlockPrefabView` on the prefab root. Designers
+can then adjust the prefab asset, while runtime continues to load it through
+`prefabKey` and bind via `IDataBoundView<BlockData>`.
+
 ## 媒体引用
 
 文章内容 JSON 不携带图片、视频等二进制内容，只携带媒体引用。客户端先渲染文本和布局，再由媒体服务异步加载资源。

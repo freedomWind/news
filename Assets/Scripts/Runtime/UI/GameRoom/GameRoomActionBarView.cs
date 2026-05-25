@@ -39,7 +39,11 @@ namespace NewsFramework.UI.GameRoom
             AppUIFactory.AddLayoutElement(root.gameObject, 110f);
             AppUIFactory.AddVerticalLayout(root.gameObject, 10f, new RectOffset(16, 16, 12, 10), TextAnchor.MiddleCenter);
 
-            BuildCommentRow(root.transform, onAction);
+            if (data == null || data.mode != GameRoomMode.Replay)
+            {
+                BuildCommentRow(root.transform, onAction);
+            }
+
             BuildSpectatorLinkRow(root.transform, data, onAction);
         }
 

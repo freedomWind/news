@@ -111,6 +111,24 @@ namespace NewsFramework.Data.Mock
             };
         }
 
+        public static GameRoomData CreateReplayRoom(string replayId = "")
+        {
+            var room = CreateSpectatorRoom(string.IsNullOrEmpty(replayId) ? "replay_article_001" : replayId);
+            room.title = "棋局回放";
+            room.mode = GameRoomMode.Replay;
+            room.roundText = "第 12-14 回合";
+            room.statusText = "回放预览中";
+            room.countdownText = "--:--";
+            room.viewerCount = 0;
+            room.actions = new List<GameRoomActionData>
+            {
+                CreateAction("replay", "播放/暂停", "▶"),
+                CreateAction("share", "分享回放", "↗")
+            };
+            room.danmaku.Clear();
+            return room;
+        }
+
         private static GameRoomActionData CreateAction(string actionId, string label, string icon = "")
         {
             return new GameRoomActionData

@@ -13,11 +13,22 @@ namespace NewsFramework.UI.GameRoom
         private RectTransform exitModal;
         private GameRoomData data;
         private Action onBack;
+        private Action<GameRoomActionData> onRoomAction;
 
         public void Build(RectTransform parent, GameRoomData roomData, Action backHandler)
         {
+            Build(parent, roomData, backHandler, null);
+        }
+
+        public void Build(
+            RectTransform parent,
+            GameRoomData roomData,
+            Action backHandler,
+            Action<GameRoomActionData> roomActionHandler)
+        {
             data = roomData ?? new GameRoomData();
             onBack = backHandler;
+            onRoomAction = roomActionHandler;
 
             var background = AppUIFactory.CreateImage("GameRoomBackground", parent, GameRoomStyle.Walnut);
             AppUIFactory.Stretch(background.rectTransform);
@@ -231,6 +242,7 @@ namespace NewsFramework.UI.GameRoom
             }
 
             Debug.Log("GameRoom UI action: " + action.actionId);
+            onRoomAction?.Invoke(action);
         }
     }
 }

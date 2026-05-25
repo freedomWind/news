@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using NewsFramework.Data.Blocks;
 using NewsFramework.Data.Features;
 using NewsFramework.Data.Mock;
+using NewsFramework.GameRuntime;
 using NewsFramework.Services.Content;
 using NewsFramework.Services.Content.Feed;
 using NewsFramework.Services.Content.Runtime;
@@ -25,6 +26,7 @@ namespace NewsFramework.UI.Pages
         private RectTransform safeRoot;
         private RectTransform articleLayer;
         private RectTransform gameRoomLayer;
+        private GameHostController gameHost;
         private TabPageHost pageHost;
         private TabPageView homePageView;
         private TabPageView dataPageView;
@@ -300,30 +302,44 @@ namespace NewsFramework.UI.Pages
 
             if (action.type == "open_match" && action.target == "match_live")
             {
-                ShowSpectatorRoom(action.GetParameter("matchId"));
+                LaunchSpectatorRoom(action.GetParameter("matchId"));
+                return;
+            }
+
+            if (action.type == "open_match" && action.target == "match_detail")
+            {
+                LaunchReplayRoom(action.GetParameter("matchId"));
                 return;
             }
 
             if (action.type == "open_ai_practice" || action.type == "start_ranked_match")
             {
-                ShowPlayerRoom();
+                LaunchPlayerRoom();
                 return;
             }
 
             Debug.Log($"Unhandled action: {action?.type} -> {action?.target}");
         }
 
-        private void ShowSpectatorRoom(string matchId)
+        private void LaunchSpectatorRoom(string matchId)
         {
-            ShowGameRoom(GameRoomMockData.CreateSpectatorRoom(matchId));
+            var roomData = GameRoomMockData.CreateSpectatorRoom(matchId);
+            LaunchGame(GameLaunchRequest.Spectator(roomData.roomId, roomData));
         }
 
-        private void ShowPlayerRoom()
+        private void LaunchPlayerRoom()
         {
-            ShowGameRoom(GameRoomMockData.CreatePlayerRoom());
+            var roomData = GameRoomMockData.CreatePlayerRoom();
+            LaunchGame(GameLaunchRequest.AiTraining(roomData));
         }
 
-        private void ShowGameRoom(NewsFramework.Data.GameRoom.GameRoomData roomData)
+        private void LaunchReplayRoom(string replayId)
+        {
+            var roomData = GameRoomMockData.CreateReplayRoom(replayId);
+            LaunchGame(GameLaunchRequest.Replay(string.IsNullOrEmpty(replayId) ? roomData.roomId : replayId, roomData));
+        }
+
+        private void LaunchGame(GameLaunchRequest request)
         {
             CloseGameRoom();
 
@@ -331,14 +347,30 @@ namespace NewsFramework.UI.Pages
             AppUIFactory.Stretch(gameRoomLayer);
             gameRoomLayer.SetAsLastSibling();
 
-            var page = gameRoomLayer.gameObject.AddComponent<GameRoomPage>();
-            page.Build(gameRoomLayer, roomData, CloseGameRoom);
+            gameHost = gameRoomLayer.gameObject.AddComponent<GameHostController>();
+            gameHost.Launch(gameRoomLayer, request, HandleGameCompleted);
         }
 
-        private void CloseGameRoom()
+        private void HandleGameCompleted(GameResultData result)
+        {
+            if (result != null)
+            {
+                Debug.Log($"[HomePage] Game completed gameId={result.gameId} mode={result.mode} sessionId={result.sessionId} result={result.outcome} reason={result.reason}");
+            }
+
+            CloseGameRoom(false);
+        }
+
+        private void CloseGameRoom(bool notifyHost = true)
         {
             if (gameRoomLayer == null)
             {
+                return;
+            }
+
+            if (notifyHost && gameHost != null)
+            {
+                gameHost.RequestExit("host_close");
                 return;
             }
 
@@ -352,6 +384,7 @@ namespace NewsFramework.UI.Pages
             }
 
             gameRoomLayer = null;
+            gameHost = null;
         }
 
         private void ShowArticle(string articleId)

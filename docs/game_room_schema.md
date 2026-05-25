@@ -47,7 +47,7 @@ GameRoomData
 | --- | --- | --- |
 | `roomId` | string | 房间或对局 id |
 | `title` | string | 顶部标题 |
-| `mode` | enum | `Player`、`AiTraining`、`Spectator` |
+| `mode` | enum | `Player`、`AiTraining`、`Spectator`、`Replay` |
 | `roundText` | string | 回合展示文本 |
 | `statusText` | string | 当前局面状态文本 |
 | `countdownText` | string | 当前倒计时展示文本 |

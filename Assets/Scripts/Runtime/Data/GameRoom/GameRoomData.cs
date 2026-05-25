@@ -7,7 +7,8 @@ namespace NewsFramework.Data.GameRoom
     {
         Player,
         AiTraining,
-        Spectator
+        Spectator,
+        Replay
     }
 
     public enum GamePieceSide
@@ -37,7 +38,7 @@ namespace NewsFramework.Data.GameRoom
 
         public bool IsSpectator()
         {
-            return mode == GameRoomMode.Spectator;
+            return mode == GameRoomMode.Spectator || mode == GameRoomMode.Replay;
         }
     }
 

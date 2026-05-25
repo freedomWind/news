@@ -1,0 +1,19 @@
+{
+    "name": "NewsFramework.Editor",
+    "rootNamespace": "NewsFramework.Editor",
+    "references": [
+        "NewsFramework.Runtime",
+        "NewsFramework.Services"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

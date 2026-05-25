@@ -1,0 +1,6 @@
+.dotnet/
+data/
+**/bin/
+**/obj/
+*.user
+*.suo

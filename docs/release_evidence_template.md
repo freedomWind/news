@@ -13,7 +13,7 @@ This file tracks the checklist in `release_compliance_checklist.md`.
 | App version | TBD |
 | Build number | TBD |
 | Release branch / commit | TBD |
-| Gate profile | Global MVP / China Release / Future Capability |
+| Gate profile | Global MVP / SEA Market / Vietnam Gate / China Release / Future Capability |
 | Platforms | iOS / Android |
 | Target regions | TBD |
 | Release owner | TBD |
@@ -164,3 +164,34 @@ Use these subsections when the gate is run on a concrete build.
 | China news permit legal assessment |  | future | Activate if content scope includes regulated news. |
 | China data localization architecture |  | future | Activate for China-region release or China-region data processing. |
 | GDPR consent/export/incident evidence |  | future | Activate for EU release where applicable. |
+
+### Market Expansion Evidence
+
+Use this section with `sea_market_release_appendix.md` when Southeast Asia
+markets are in scope.
+
+| Market / code | Check | Level | Owner | Legal Review Required | Status | Evidence link/path | Notes |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| SG-01 | Singapore metadata has no gambling/betting/cash-prize wording. | Major | Product | No | future |  | Activate when Singapore is in scope. |
+| PH-01 | Philippines no-gambling evidence and metadata review. | Major | Dev/Product | No | future |  | Activate when Philippines is in scope. |
+| MY-01 | Malaysia 3R content review for Race, Religion, Royalty. | Blocker | Content Ops/Compliance | No | future |  | Activate when Malaysia is in scope. |
+| MY-02 | Malaysia local review for intentional race/religion/royalty content. | Major | Compliance | Yes | future |  | Activate only if such content is included. |
+| ID-01 | Indonesia Kominfo PSE registration decision/evidence. | Blocker | Legal/Ops | Yes | future |  | Activate when Indonesia is in scope. |
+| ID-02 | Indonesia rating review. | Major | Compliance | No | future |  | Activate when Indonesia is in scope. |
+| ID-03 | Indonesian UI/privacy-policy readiness. | Major | Product/Compliance | No | future |  | Activate when Indonesia is in scope. |
+| ID-04 | Indonesia religion/prohibited-content review. | Blocker | Content Ops/Compliance | No | future |  | Activate when Indonesia is in scope. |
+| TH-01 | Thailand royal-family red-line content review. | Blocker | Content Ops/Compliance | No | future |  | Activate when Thailand is in scope. |
+| TH-02 | Thailand PDPA opt-in consent path. | Blocker | Compliance/Dev | No | future |  | Activate when Thailand is in scope. |
+| TH-03 | Thai UI/privacy-policy readiness. | Major | Product/Compliance | No | future |  | Activate when Thailand is in scope. |
+| TH-04 | Thailand rating review. | Major | Compliance | No | future |  | Activate when Thailand is in scope. |
+| VN-01 | Vietnam local entity or licensed publisher partnership. | Blocker | Legal/Ops | Yes | blocked |  | Vietnam remains blocked until evidence exists. |
+| VN-02 | Vietnam game classification/license path approved. | Blocker | Legal/Ops | Yes | blocked |  | Vietnam remains blocked until evidence exists. |
+| VN-03 | Vietnam server deployment plan and production evidence. | Blocker | Dev/Ops | No | blocked |  | Vietnam remains blocked until evidence exists. |
+| VN-04 | Vietnam phone verification if triggered by online/social/game features. | Blocker | Dev | No | future |  | Activate if triggered. |
+| VN-05 | Vietnam age rating and under-18 play-time controls if triggered. | Blocker | Compliance/Dev | No | future |  | Activate if triggered. |
+| VN-06 | Vietnam news/content partnership if aggregating local licensed news. | Major | Content Ops | Yes | future |  | Activate if triggered. |
+| VN-07 | Vietnam 24-hour illegal-content removal process if UGC/online/social ships. | Blocker | Dev/Content Ops | No | future |  | Activate if triggered. |
+| VN-08 | Vietnamese UI and Vietnamese privacy policy. | Major | Product/Compliance | No | todo |  | Required before Vietnam launch. |
+| VN-09 | Vietnam board-game positioning legal review. | Blocker | Legal/Compliance | Yes | blocked |  | Vietnam remains blocked until external legal opinion exists. |
+| VN-10 | Vietnam data localization compliance if personal data is collected. | Blocker | Dev/Ops | Yes | future |  | Activate if triggered. |
+| VN-11 | Vietnam Law on Digital Technology Industry 2026 applicability review. | Major | Legal | Yes | blocked |  | Vietnam remains blocked until external legal opinion exists. |
